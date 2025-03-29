@@ -8,4 +8,5 @@
 	[x] run fortify
 	[x] create artifact - check of nuget can be deployed to artifactory or other provider
 	[x] deploy to pass as dev version
+	[x] merge to main
 	
