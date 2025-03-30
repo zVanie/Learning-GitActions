@@ -16,6 +16,7 @@ public class EndpointTestIt : IClassFixture<WebApplicationFactory<Program>>
     {
         var response = await _client.GetAsync("/weatherforecast");
         Assert.Equivalent(response.StatusCode, StatusCodes.Status200OK);
+        Assert.Equivalent(response.StatusCode, StatusCodes.Status200OK);
 
         var content = await response.Content.ReadAsStringAsync();
         Assert.NotNull(content);
