@@ -20,11 +20,4 @@ public class EndpointTestIt:IClassFixture<WebApplicationFactory<Program>>
         var content = await response.Content.ReadAsStringAsync();
         Assert.NotNull(content);
     }
-
-    [Fact]
-    public async Task WeatherForecastShouldFailingTestAsync()
-    {
-        var response = await _client.GetAsync("/weatherforecast");
-        Assert.Equivalent(response.StatusCode, StatusCodes.Status400BadRequest);
-    }
 }
