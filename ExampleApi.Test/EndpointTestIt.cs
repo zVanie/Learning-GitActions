@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ExampleApi.Test;
 
-public class EndpointTestIt:IClassFixture<WebApplicationFactory<Program>>
+public class EndpointTestIt : IClassFixture<WebApplicationFactory<Program>>
 {
     readonly HttpClient _client;
     public EndpointTestIt(WebApplicationFactory<Program> factory)
