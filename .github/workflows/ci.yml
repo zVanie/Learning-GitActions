@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+    # checkout our target branch
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0
+
+    # Since we are not using -no-build flag it will first build solution and then run the test
+      - name: Build and test
+        run: dotnet test --configuration Release
+
+    # This will publish (output these files in release mode. The do a configuration release where i am compiling those DLLs. 
+    # I am goint to put it to a directory called artifacts) Same as we build project in release mode
+      - name: Publish
+        run: dotnet publish ExampleApi/ExampleApi.csproj  --configuration Release -o artifacts
+
