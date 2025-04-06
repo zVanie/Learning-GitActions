@@ -1,14 +1,14 @@
-name: Run every day
+# name: Run every day
 
-on:
-  schedule:
-    - cron: '21 21 * * *'
+# on:
+#   schedule:
+#     - cron: '21 21 * * *'
 
-jobs:
-  build:
-    name: PR Verify
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     name: PR Verify
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Hello world
-      run: echo "Hello from cron job"
+#     steps:
+#     - name: Hello world
+#       run: echo "Hello from cron job"
