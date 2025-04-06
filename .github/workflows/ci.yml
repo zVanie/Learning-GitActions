@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "master" ]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     name: CI
@@ -32,3 +36,58 @@ jobs:
         with:
           name: exampleapi-artifact
           path: artifacts/ # this is path from publish step we publish our exampleapi dlls to artifacts folder so we have to set the path to that
+
+  # deploy_dev:
+  #   name: Deploy Dev
+  #   runs-on: ubuntu-latests
+  #   needs: build # means that the build job have to finnishe before we run this Deploy job
+  #   environment: dev # we create environment secret in github environmnet one for dev one for prod
+
+  #   steps:       
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: example-artifacts
+  #         path: artifacts/ # artifacts path defined in build part - line 34 (We grap/download the dlls from artifacts from our our publish-artifact folder)
+
+  #   #Authenticate to azure
+  #     - name: Azure login
+  #       uses: azure/login@v2
+  #       with:
+  #         client-id: ${{ secrets.AZURE_CLIENT_ID }} ## in azure we have to create managed itentity and create there new client identity if we don't have one. # Then we have to add our client ID in federated credentials, select github action there, fill organization, repository name, enity on branch environment or branch. Name doesn't matter 
+  #         tenant-id: ${{ secrets.AZURE_TENANT_ID }} ## tenant id is known 
+  #         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} ## subscription id is known 
+
+  #    # Deploy to Azure Web apps
+  #     - name: 'Run Azure webapp deploy action using publish profile credentials'
+  #       uses: azure/webapps-deploy@v2
+  #       with: 
+  #         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+  #         package: artifacts/ 
+
+
+  # deploy_prod:
+  #   name: Deploy Prod
+  #   runs-on: ubuntu-latests
+  #   needs: deploy_dev # means that we will deploy to prod after dev finnish
+  #   environment: prod # change to prod environment so we create environment secret in github environmnet one for dev one for prod
+
+  #   steps:       
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: example-artifacts
+  #         path: artifacts/ # artifacts path defined in build part - line 34 (We grap/download the dlls from artifacts from our our publish-artifact folder)
+
+  #   #Authenticate to azure
+  #     - name: Azure login
+  #       uses: azure/login@v2
+  #       with:
+  #         client-id: ${{ secrets.AZURE_CLIENT_ID }} ##  same as dev but for prod subscription
+  #         tenant-id: ${{ secrets.AZURE_TENANT_ID }} ## 
+  #         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} ##  
+
+  #    # Deploy to Azure Web apps
+  #     - name: 'Run Azure webapp deploy action using publish profile credentials'
+  #       uses: azure/webapps-deploy@v2
+  #       with: 
+  #         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+  #         package: artifacts/ 
